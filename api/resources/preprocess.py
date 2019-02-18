@@ -67,5 +67,6 @@ def preprocesses(col_case_id, col_task, col_timestamp, mis_val):
             df.to_csv(final_file, index=False)
 
             return True
-        except:
+        except Exception as e:
+            print(e)
             return False
