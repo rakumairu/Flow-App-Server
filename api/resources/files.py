@@ -17,9 +17,9 @@ class Files(Resource):
             })
         
         raw_file = data['file']
-        print(raw_file)
         if raw_file:
-            raw_file.save(os.path.join(_folderPath, raw_file.filename))
+            extension = raw_file.filename.split('.')[-1]
+            raw_file.save(os.path.join(_folderPath, 'raw' + '.' + extension))
             return json.dumps({
                 'data': '',
                 'message': 'File succesfully uploaded',
