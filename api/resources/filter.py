@@ -11,7 +11,7 @@ class Filter(Resource):
         else:
             data = pd.read_csv(raw_file)
 
-        if len(data.columns) == 3:
+        if 'case_id' in data.columns and 'task' in data.columns and 'timestamp' in data.columns:
             # Semua event yang unik
             all_event = list(set(data['task']))
 

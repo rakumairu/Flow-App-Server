@@ -51,25 +51,50 @@ class Preprocess(Resource):
         )
 
 def preprocesses(data, col_case_id, col_task, col_timestamp, mis_val):
-        """"
-        Preprocessing raw data
-        """
-        try:
-            # Select column and rename column
-            case_id = data.iloc[:, [col_case_id]]
-            task = data.iloc[:, [col_task]]
-            timestamp = data.iloc[:, [col_timestamp]]
+    """"
+    Preprocessing raw data
+    """
+    # try:
+    #     # Select column and rename column
+    #     case_id = data.iloc[:, [col_case_id]]
+    #     task = data.iloc[:, [col_task]]
+    #     timestamp = data.iloc[:, [col_timestamp]]
 
-            # Join the column
-            data = pd.concat([case_id, task, timestamp], axis=1, sort=False)
+    #     # Join the column
+    #     data = pd.concat([case_id, task, timestamp], axis=1, sort=False)
 
-            # Rename the column
-            data.columns = ['case_id','task','timestamp']
+    #     # Rename the column
+    #     data.columns = ['case_id','task','timestamp']
 
-            # Save file to csv format
-            data.to_csv(final_file, index=False)
+    #     # Save file to csv format
+    #     data.to_csv(final_file, index=False)
 
-            return True
-        except Exception as e:
-            print(e)
-            return False
+    #     return True
+    # except Exception as e:
+    #     print(e)
+    #     return False
+    try:
+        inputt = [col_case_id, col_task, col_timestamp]
+        old_column = list(data)
+
+        new_column = []
+        rename_column = ['case_id', 'task', 'timestamp']
+
+        for val in inputt:
+            new_column.append(old_column[val])
+
+        for idx, val in enumerate(old_column):
+            for val2 in inputt:
+                if idx != val2 and val not in new_column:
+                    new_column.append(val)
+                    rename_column.append(val)
+
+        data = data[new_column]
+        data.columns = rename_column
+
+        data.to_csv(final_file, index=False)
+
+        return True
+    except Exception as e:
+        print(e)
+        return False
