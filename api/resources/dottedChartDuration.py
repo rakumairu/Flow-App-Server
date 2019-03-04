@@ -1,7 +1,7 @@
 from flask_restful import Resource
 import pandas as pd, numpy
 import csv, json, os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 final_csv = 'api/static/data/final.csv'
 
@@ -17,6 +17,8 @@ class DottedChartDuration(Resource):
 
             for val in each_case_list:
                 duration = []
+                duplicate_offset = 2
+                duplicate_flag = False
                 temp = None
                 xx = None
                 for ev in val['timestamp']:
@@ -25,11 +27,20 @@ class DottedChartDuration(Resource):
                             xx = date(ev) - date(temp)
                         else:
                             xx += date(ev) - date(temp)
-                        dd = datetime.strptime(days_hours_minutes(xx), '%H:%M')
-                        duration.append(datetime.strftime(dd, format='%H:%M'))
+                        if ev == temp:
+                            if duplicate_flag == False:
+                                duplicate_offset = 0
+                                duplicate_flag = True
+                            duplicate_offset += 2
+                            yy = xx + timedelta(seconds = duplicate_offset)
+                        else:
+                            duplicate_flag = False
+                            yy = xx + timedelta(seconds = 0)
+                        dd = datetime.strptime(days_hours_minutes(yy), '%H:%M:%S')
+                        duration.append(datetime.strftime(dd, format='%H:%M:%S'))
                     else:
-                        dd = datetime.strptime('00:00', '%H:%M')
-                        duration.append(datetime.strftime(dd, format='%H:%M'))
+                        dd = datetime.strptime('00:00:00', '%H:%M:%S')
+                        duration.append(datetime.strftime(dd, format='%H:%M:%S'))
                     temp = ev
                 val['duration'] = duration
 
@@ -41,7 +52,7 @@ class DottedChartDuration(Resource):
                 task = df2['task'].loc[row]
                 timestamp = df2['duration'].loc[row]
                 if task not in data2:
-                    data2[task] = dict(case_id = [], timestamp = [], size=[])
+                    data2[task] = dict(case_id = [], timestamp = [])
                 if type(case_id) is numpy.int64:
                     data2[task]['case_id'].append(case_id.item())
                 else:
@@ -81,4 +92,4 @@ def date(datestr):
     return temp
 
 def days_hours_minutes(td):
-    return str(td.seconds//3600) + ':' + str((td.seconds//60)%60)
+    return str(td.seconds//3600) + ':' + str((td.seconds//60)%60) + ':' + str(td.seconds%60)
