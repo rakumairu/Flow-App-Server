@@ -17,7 +17,7 @@ class DottedChartDuration(Resource):
 
             for val in each_case_list:
                 duration = []
-                duplicate_offset = 2
+                duplicate_offset = 1
                 duplicate_flag = False
                 temp = None
                 xx = None
@@ -31,7 +31,7 @@ class DottedChartDuration(Resource):
                             if duplicate_flag == False:
                                 duplicate_offset = 0
                                 duplicate_flag = True
-                            duplicate_offset += 2
+                            duplicate_offset += 1
                             yy = xx + timedelta(seconds = duplicate_offset)
                         else:
                             duplicate_flag = False
