@@ -1,7 +1,7 @@
 # FlowClient
 
 A project that i created as my final assignment to get my bachelor degree
-This project's aim is to provide API to be used in FlowClient project 
+This project's aim is to provide API to be used in [FlowClient](https://gitlab.com/rakumairu/flow-client) project 
 
 This project was created with [Flask RESTful](https://flask-restful.readthedocs.io/en/latest/) version 0.3.7.
 
@@ -37,6 +37,8 @@ To run this app, you can run the development server using this command
 python wsgi.py
 ```
 
+**for macOS/linux user, use python3 instead of python command**
+
 and then you can access the api
 
 ## API list
@@ -45,9 +47,17 @@ and then you can access the api
 * FileExist: http://127.0.0.1:5000/api/exist
 * Display: http://127.0.0.1:5000/api/display
 * Preprocessing: http://127.0.0.1:5000/api/prepos
+* Convert Time: http://127.0.0.1:5000/api/convert
+* Giving Alias: http://127.0.0.1:5000/api/alias
+* Join two Columns: http://127.0.0.1:5000/api/join
+* Drop a column: http://127.0.0.1:5000/api/drop
+* Statistic Summary: http://127.0.0.1:5000/api/statisticsummary
+* Statistic Start Event: http://127.0.0.1:5000/api/statisticstart
+* Statistic End Evet: http://127.0.0.1:5000/api/statisticend
 * Filtering: http://127.0.0.1:5000/api/filter
 * ControlFlow: http://127.0.0.1:5000/api/controlflow
 * DottedChart: http://127.0.0.1:5000/api/dottedchart
+* DottedChartDuration: http://127.0.0.1:5000/api/dottedchartduration
 
 ## Deployment
 
@@ -55,7 +65,7 @@ Project still a work in progress, and haven't tested in live server yet
 
 ## Author
 
-* **Demaspira Aulia** - [noobdedem](https://github.com/noobdedem) 
+* **Demaspira Aulia** - [rakumairu](https://github.com/rakumairu) 
 
 For further question you can contact me here: demaspiraa@gmail.com
 
