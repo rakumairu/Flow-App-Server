@@ -45,6 +45,7 @@ class DottedChartDuration(Resource):
                 val['duration'] = duration
 
             df2 = pd.concat(each_case_list)
+            df2.to_csv('api/static/data/coba.csv', index=False)
 
             data2 = {}
             for row in df2.index:

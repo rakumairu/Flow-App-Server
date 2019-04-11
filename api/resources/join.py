@@ -49,6 +49,6 @@ class Join(Resource):
 # Fungsi untuk menggabungkan 2 kolom menjadi kolom baru
 def join(data, col1, col2, name, delimiter):
     if delimiter != None:
-        data[name] = data[col1] + delimiter + data[col2]
+        data[name] = data[col1].map(str) + str(delimiter) + data[col2].map(str)
     else:
-        data[name] = data[col1] + data[col2]
+        data[name] = data[col1].map(str) + data[col2].map(str)

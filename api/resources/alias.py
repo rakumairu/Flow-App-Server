@@ -1,5 +1,5 @@
 from flask_restful import Resource, request
-import pandas as pd, json, os
+import pandas as pd, json, os, numpy as np
 
 raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
@@ -63,12 +63,14 @@ class Alias(Resource):
 # Fungsi untuk mengubah alias
 def map_alias(data, alias, col):
     data[col] = data[col].map(alias)
+    data[col].replace('', np.nan, inplace=True)
     data.dropna(subset=[col], inplace=True)
 
 def map_alias_new(data, alias, col):
     new_column_name = alias.pop('newColumnName')
     data[new_column_name] = data[col]
     data[new_column_name] = data[new_column_name].map(alias)
+    data[col].replace('', np.nan, inplace=True)
     data.dropna(subset=[new_column_name], inplace=True)
 
 # Mendapatkan kolom yang unik

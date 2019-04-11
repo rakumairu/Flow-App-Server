@@ -47,7 +47,8 @@ class Files(Resource):
                     'status':  'success'
                 }
             )
-        return json.dumps(
+        else:
+            return json.dumps(
                 {
                     'data': '',
                     'message': 'File does not exist',

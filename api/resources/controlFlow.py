@@ -7,6 +7,7 @@ class ControlFlow(Resource):
             log = flow(csv_to_dict('api/static/data/final.csv'))
             
             max, min = find_max_min(log)
+            print(log)
 
             return json.dumps(
                 {
