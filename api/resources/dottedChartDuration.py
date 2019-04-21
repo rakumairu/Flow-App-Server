@@ -75,7 +75,7 @@ class DottedChartDuration(Resource):
                         'data': data2,
                         'sort': sorted_id_with_number
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load dotted chart with relative time',
                     'status': 'success'
                 }
             )

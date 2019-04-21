@@ -46,7 +46,7 @@ class CountAttempt(Resource):
                     'column': list(data.columns),
                     'data': unique_data
                 },
-                'message': 'Succesfully fetch the data',
+                'message': 'Succesfully count the attempt',
                 'status': 'success'
             }
         )

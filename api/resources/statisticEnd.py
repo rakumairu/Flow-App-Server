@@ -62,7 +62,7 @@ class StatisticEnd(Resource):
                         'end_event': end_list,
                         'end_occurance': end_occurance
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load end event data',
                     'status': 'success'
                 }
             )

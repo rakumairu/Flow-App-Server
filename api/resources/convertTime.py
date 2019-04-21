@@ -34,7 +34,7 @@ class ConvertTime(Resource):
             return json.dumps(
                 {
                     'data': list(data.columns),
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully convert the data',
                     'status': 'success'
                 }
             )

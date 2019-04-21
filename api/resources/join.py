@@ -33,7 +33,7 @@ class Join(Resource):
             return json.dumps(
                 {
                     'data': list(data.columns),
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully join the column',
                     'status': 'success'
                 }
             )

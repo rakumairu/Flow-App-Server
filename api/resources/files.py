@@ -1,8 +1,9 @@
 from flask_restful import Resource,reqparse
-import werkzeug, os, json
+import werkzeug, os, json, pandas as pd
 
 parser = reqparse.RequestParser()
 parser.add_argument('file', type=werkzeug.datastructures.FileStorage, location='files')
+parser.add_argument('reverse')
 _folderPath = './api/static/data/'
 
 class Files(Resource):
@@ -19,12 +20,21 @@ class Files(Resource):
         raw_file = data['file']
         if raw_file:
             extension = raw_file.filename.split('.')[-1]
-            raw_file.save(os.path.join(_folderPath, 'raw' + '.' + extension))
-            return json.dumps({
-                'data': '',
-                'message': 'File succesfully uploaded',
-                'status': 'success'
-            })
+            if extension == 'csv':
+                raw_file.save(os.path.join(_folderPath, 'raw' + '.' + extension))
+                if data['reverse'] == 'true':
+                    reverseData()
+                return json.dumps({
+                    'data': '',
+                    'message': 'File succesfully uploaded',
+                    'status': 'success'
+                })
+            else:
+                return json.dumps({
+                    'data': '',
+                    'message': 'File is in incorrect format',
+                    'status': 'error'
+                })
 
         return json.dumps({
             'data': '',
@@ -33,7 +43,6 @@ class Files(Resource):
         })
 
     def delete(self):
-        # TODO: lengkapin deletenya
         raw_csv = os.path.join(_folderPath, 'raw.csv')
         final_csv = os.path.join(_folderPath, 'final.csv')
         if os.path.isfile(raw_csv):
@@ -47,11 +56,8 @@ class Files(Resource):
                     'status':  'success'
                 }
             )
-        else:
-            return json.dumps(
-                {
-                    'data': '',
-                    'message': 'File does not exist',
-                    'status':  'error'
-                }
-            )
+
+def reverseData():
+    df = pd.read_csv(os.path.join(_folderPath, 'raw.csv'))
+    df = df.reindex(index=df.index[::-1])
+    df.to_csv(os.path.join(_folderPath, 'raw.csv'), index=False)

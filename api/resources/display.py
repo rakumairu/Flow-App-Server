@@ -56,7 +56,7 @@ class Display(Resource):
                             "raw": {"data": raw, "head": raw_head}, 
                             "final": {"data": final, "head": final_head}
                     },
-                        'message': 'Succesfully fetch the data',
+                        'message': 'Succesfully load the data',
                         'status': 'success'
                     }
                 )
@@ -66,7 +66,7 @@ class Display(Resource):
                     'data': {
                         "raw": {"data": raw, "head":raw_head}
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load the data',
                     'status': 'success'
                 }
             )

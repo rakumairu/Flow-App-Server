@@ -30,7 +30,7 @@ class DottedChart(Resource):
                         'data': data,
                         'sort': sort_cid
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load dotted chart with absolute time',
                     'status': 'success'
                 }
             )

@@ -62,7 +62,7 @@ class StatisticStart(Resource):
                         'start_event': start_list,
                         'start_occurance': start_occurance
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load start event data',
                     'status': 'success'
                 }
             )

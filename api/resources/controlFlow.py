@@ -16,7 +16,7 @@ class ControlFlow(Resource):
                         'max': max,
                         'min': min
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load control flow',
                     'status': 'success'
                 }
             )

@@ -43,7 +43,7 @@ class StatisticSummary(Resource):
                         'jenis_event': jenis_event,
                         'event_occurance': all_event_occurance
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load all event data',
                     'status': 'success'
                 }
             )

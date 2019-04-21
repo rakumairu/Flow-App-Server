@@ -38,7 +38,7 @@ class Preprocess(Resource):
             return json.dumps(
                 {
                     'data': '',
-                    'message': 'Succesfully preprocess the data',
+                    'message': 'Succesfully choose the column',
                     'status': 'success'
                 }
             )

@@ -45,7 +45,7 @@ class Filter(Resource):
                         'end': end_list,
                         'all': all_event
                     },
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully load the data',
                     'status': 'success'
                 }
             )
@@ -98,7 +98,7 @@ class Filter(Resource):
                 return json.dumps(
                     {
                         'data': '',
-                        'message': 'Success filtering the data',
+                        'message': 'Success filtering start event',
                         'status': 'success'
                     }
                 )
@@ -135,7 +135,7 @@ class Filter(Resource):
                 return json.dumps(
                     {
                         'data': '',
-                        'message': 'Success filtering the data',
+                        'message': 'Success filtering end event',
                         'status': 'success'
                     }
                 )
@@ -162,7 +162,7 @@ class Filter(Resource):
                 return json.dumps(
                     {
                         'data': '',
-                        'message': 'Success filtering the data',
+                        'message': 'Success filtering all event',
                         'status': 'success'
                     }
                 )

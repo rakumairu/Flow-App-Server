@@ -33,7 +33,7 @@ class Drop(Resource):
             return json.dumps(
                 {
                     'data': list(data.columns),
-                    'message': 'Succesfully fetch the data',
+                    'message': 'Succesfully drop the column',
                     'status': 'success'
                 }
             )
