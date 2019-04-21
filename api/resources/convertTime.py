@@ -28,7 +28,17 @@ class ConvertTime(Resource):
             else:
                 data = pd.read_csv(raw_file)
 
-            convert(data, args['data']['time'])
+            try:
+                convert(data, args['data']['time'])
+            except Exception as e:
+                print(e)
+                return json.dumps(
+                    {
+                        'data': '',
+                        'message': 'Something went wrong',
+                        'status': 'error'
+                    }
+                )
 
             data.to_csv(final_file, index=False)
             return json.dumps(

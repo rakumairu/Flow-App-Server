@@ -1,30 +1,47 @@
 from flask_restful import Resource
-import csv, json
+import csv, json, os, pandas as pd
+
+raw_file = 'api/static/data/raw.csv'
+final_file = 'api/static/data/final.csv'
 
 class ControlFlow(Resource):
     def get(self):
-        try:
-            log = flow(csv_to_dict('api/static/data/final.csv'))
-            
-            max, min = find_max_min(log)
-            print(log)
+        if os.path.isfile(final_file):
+            data = pd.read_csv(final_file)
+        else:
+            data = pd.read_csv(raw_file)
 
-            return json.dumps(
-                {
-                    'data': {
-                        'log': log,
-                        'max': max,
-                        'min': min
-                    },
-                    'message': 'Succesfully load control flow',
-                    'status': 'success'
-                }
-            )
-        except:
+        if 'case_id' in data.columns and 'task' in data.columns and 'timestamp' in data.columns:
+            try:
+                log = flow(csv_to_dict('api/static/data/final.csv'))
+                
+                max, min = find_max_min(log)
+                print(log)
+
+                return json.dumps(
+                    {
+                        'data': {
+                            'log': log,
+                            'max': max,
+                            'min': min
+                        },
+                        'message': 'Succesfully load control flow',
+                        'status': 'success'
+                    }
+                )
+            except:
+                return json.dumps(
+                    {
+                        'data': '',
+                        'message': 'Something went wrong',
+                        'status': 'error'
+                    }
+                )
+        else:
             return json.dumps(
                 {
                     'data': '',
-                    'message': 'Something went wrong',
+                    'message': 'Data is not finished',
                     'status': 'error'
                 }
             )
