@@ -6,12 +6,18 @@ raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
 
 class ConvertTime(Resource):
+    """"Convert time formatting"""
+
     def get(self):
+        """"Handle GET request"""
+
+        # Read file to dataframe
         if os.path.isfile(final_file):
             data = pd.read_csv(final_file)
         else:
             data = pd.read_csv(raw_file)
 
+        # Return data to frontend
         return json.dumps(
             {
                 'data': list(data.columns),
@@ -21,14 +27,21 @@ class ConvertTime(Resource):
         )
 
     def post(self):
+        """"Handle POST request"""
+
+        # Store argument from HTTP request
         args = request.get_json(force=True)
+
+        # Check if arguments is empty
         if args != None:
+            # Read file to dataframe
             if os.path.isfile(final_file):
                 data = pd.read_csv(final_file)
             else:
                 data = pd.read_csv(raw_file)
 
             try:
+                # Convert time format
                 convert(data, args['data']['time'])
             except Exception as e:
                 print(e)
@@ -58,6 +71,8 @@ class ConvertTime(Resource):
             )
 
 def convert(df, col):
+    """"Convert formatting time"""
+
     temp = []
     for i, x in enumerate(df[col]):
         d = datetime.strptime(x, '%d/%m/%y, %H:%M')

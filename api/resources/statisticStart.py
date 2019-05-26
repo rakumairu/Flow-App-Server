@@ -5,6 +5,8 @@ raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
 
 class StatisticStart(Resource):
+    """"Return summary statistic for start event"""
+    
     def get(self):
         if os.path.isfile(final_file):
             data = pd.read_csv(final_file)
@@ -12,14 +14,11 @@ class StatisticStart(Resource):
             data = pd.read_csv(raw_file)
         
         if 'case_id' in data.columns and 'task' in data.columns and 'timestamp' in data.columns:
-            # List dari semua id
             id_list = list(set(data['case_id']))
-            # Mengambil data per id
             data_per_id = {}
             for id in id_list:
                 if id not in data_per_id:
                     data_per_id[id] = data[data['case_id'] == id]
-            # List start event dan end event
             starts = []
             for key, dt in data_per_id.items():
                 for x in range(len(dt.index)):
@@ -29,7 +28,6 @@ class StatisticStart(Resource):
                         starts.append(dt['task'].iloc[x])
             start_list = list(set(starts))
 
-            # Dictionary jumlah start dan end event
             start_dict = {}
             total_in_start = 0
 

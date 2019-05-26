@@ -8,7 +8,8 @@ _folderPath = './api/static/data/'
 
 class Files(Resource):
     def post(self):
-        # TODO: handle return error kalau udah ada filenya
+        """"Upload data"""
+        
         data = parser.parse_args()
         if data['file'] == None:
             return json.dumps({
@@ -43,6 +44,8 @@ class Files(Resource):
         })
 
     def delete(self):
+        """"Delete data"""
+        
         raw_csv = os.path.join(_folderPath, 'raw.csv')
         final_csv = os.path.join(_folderPath, 'final.csv')
         if os.path.isfile(raw_csv):
@@ -58,6 +61,8 @@ class Files(Resource):
             )
 
 def reverseData():
+    """"Reverse the index of the data"""
+    
     df = pd.read_csv(os.path.join(_folderPath, 'raw.csv'))
     df = df.reindex(index=df.index[::-1])
     df.to_csv(os.path.join(_folderPath, 'raw.csv'), index=False)

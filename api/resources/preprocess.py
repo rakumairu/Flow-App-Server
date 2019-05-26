@@ -51,28 +51,7 @@ class Preprocess(Resource):
         )
 
 def preprocesses(data, col_case_id, col_task, col_timestamp, mis_val):
-    """"
-    Preprocessing raw data
-    """
-    # try:
-    #     # Select column and rename column
-    #     case_id = data.iloc[:, [col_case_id]]
-    #     task = data.iloc[:, [col_task]]
-    #     timestamp = data.iloc[:, [col_timestamp]]
-
-    #     # Join the column
-    #     data = pd.concat([case_id, task, timestamp], axis=1, sort=False)
-
-    #     # Rename the column
-    #     data.columns = ['case_id','task','timestamp']
-
-    #     # Save file to csv format
-    #     data.to_csv(final_file, index=False)
-
-    #     return True
-    # except Exception as e:
-    #     print(e)
-    #     return False
+    """"Choose columns for case id, task and timestamp"""
     try:
         inputt = [col_case_id, col_task, col_timestamp]
         old_column = list(data)

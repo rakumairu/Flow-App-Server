@@ -3,6 +3,8 @@ import os, json
 
 
 class FileExist(Resource):
+    """"Check if file is exist in server or not"""
+    
     def get(self):
         if os.path.isfile('api/static/data/raw.csv'):
             return json.dumps(

@@ -6,13 +6,15 @@ raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
 
 class CountAttempt(Resource):
+    """"Count quiz attempt by student"""
+
     def get(self):
         if os.path.isfile(final_file):
             data = pd.read_csv(final_file)
         else:
             data = pd.read_csv(raw_file)
 
-        # Data unik dari setiap atribut
+        # Get unique data
         unique_data = get_unique_column(data)
 
         return json.dumps(
@@ -34,12 +36,12 @@ class CountAttempt(Resource):
             else:
                 data = pd.read_csv(raw_file)
 
+            # Do the process to count the quiz attempt
             do(data, args['data']['col'], args['data']['start'], args['data']['end'], args['data']['base'])
 
-            # data.to_csv(final_file, index=False)
-
-            # Data unik dari setiap atribut
+            # Get unique data
             unique_data = get_unique_column(data)
+
             return json.dumps(
             {
                 'data': {
@@ -60,16 +62,18 @@ class CountAttempt(Resource):
             )
 
 def do(df, col, start, end, base):
-    # df = dd.copy()
+    """"Count quiz attempt"""
 
-    # Di aplikai pake case id aja
+    # Get unique id
     id_list = df[base].unique()
 
+    # Store data per id
     data_per_id = dict()
     for id in id_list:
         if id not in data_per_id:
             data_per_id[id] = df[df[base] == id]
 
+    # Count the attempt
     list_of_data = []
     for key, data in data_per_id.items():
         dt = data
@@ -89,12 +93,15 @@ def do(df, col, start, end, base):
         dt.dropna(subset=['n_attempt'], inplace=True)
         list_of_data.append(dt)
 
+    # Concatenate all the data
     df = pd.concat(list_of_data)
+    # Sort the index
     df.sort_index(inplace=True)
     df.to_csv(final_file, index=False)
 
-# Mendapatkan kolom yang unik
 def get_unique_column(data):
+    """"Get unique column"""
+    
     unique_data = {}
     for col in data.columns:
         unique_data[col] = list(set(data[col]))

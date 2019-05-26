@@ -12,16 +12,16 @@ class StatisticSummary(Resource):
             data = pd.read_csv(raw_file)
         
         if 'case_id' in data.columns and 'task' in data.columns and 'timestamp' in data.columns:
-            # Jumlah case
+            # Total number of case
             total_case = len(data['case_id'].unique())
-            # Jumlah event total
+            # Total number of event
             total_event = len(data['task'])
-            # Jumlah event unique
+            # Total number of unique event
             jenis_event = len(data['task'].unique())
 
-            # Semua event yang unik
+            # All unique event
             all_event = list(set(data['task']))
-            # Menghitung occurance dari setiap event
+            # Calculate the occurance of every event
             all_event_occurance = []
             for event in all_event:
                 event_occurance = {}

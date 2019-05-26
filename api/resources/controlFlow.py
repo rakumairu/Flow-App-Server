@@ -5,19 +5,27 @@ raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
 
 class ControlFlow(Resource):
+    """"Handle data processing to display control flow"""
+    
     def get(self):
+        """"Handle GET request"""
+        
+        # Read file to dataframe
         if os.path.isfile(final_file):
             data = pd.read_csv(final_file)
         else:
             data = pd.read_csv(raw_file)
 
+        # Check if case id, task and timestamp is exist in data
         if 'case_id' in data.columns and 'task' in data.columns and 'timestamp' in data.columns:
             try:
+                # Generate data for the control flow
                 log = flow(csv_to_dict('api/static/data/final.csv'))
                 
+                # Find maximum and minimum value
                 max, min = find_max_min(log)
-                print(log)
 
+                # Return data to frontend
                 return json.dumps(
                     {
                         'data': {
@@ -47,9 +55,8 @@ class ControlFlow(Resource):
             )
     
 def csv_to_dict(file_path):
-    """"
-    Read csv file as Python dictionary
-    """
+    """"Read csv file as Python dictionary"""
+
     # Initialize dictionary
     log = dict()
 
@@ -76,9 +83,8 @@ def csv_to_dict(file_path):
     return log
 
 def flow(eLog):
-    """"
-    Flow Algorithm to count transaction that exist in the process
-    """
+    """"Flow Algorithm to count transaction that exist in the process"""
+
     # Initialize dictionary
     F = dict()
 
@@ -103,9 +109,8 @@ def flow(eLog):
     return F
 
 def find_max_min(eLog):
-    """"
-    Finding maximum and minimum value in the data
-    """
+    """"Finding maximum and minimum value in the data"""
+
     # Initialize max and min value
     max = 0
     min = float('inf')

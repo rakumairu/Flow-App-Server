@@ -5,6 +5,8 @@ raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
 
 class Join(Resource):
+    """"Join two columns together"""
+    
     def get(self):
         if os.path.isfile(final_file):
             data = pd.read_csv(final_file)

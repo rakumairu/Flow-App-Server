@@ -3,19 +3,20 @@ import json, os
 import pandas as pd
 
 class Display(Resource):
+    """"Process the data to frontend"""
+
     def get(self):
         if os.path.isfile('api/static/data/raw.csv'):
-            # RAW FILE
+            # Load raw file
             data = pd.read_csv('api/static/data/raw.csv')
 
-            # Mengambil header dari file
+            # Get header in file
             head = list(data.columns.values)
 
-            # Inisialisasi data untuk json
+            # Initialize data 
             raw = []
 
-            # TODO: handle kalo data NaN di ganti jadi none atau sejenisnya
-
+            # Store the data
             for el in data.values:
                 row = {}
                 for e in range(0, len(el)):
@@ -28,17 +29,16 @@ class Display(Resource):
                 raw_head.append(k)
 
             if os.path.isfile('api/static/data/final.csv'):
-                # FINAL FILE
+                # Load final file
                 data = pd.read_csv('api/static/data/final.csv')
 
-                # Mengambil header dari file
+                # Get header from file
                 head = list(data.columns.values)
 
-                # Inisialisasi data untuk json
+                # Initialize data
                 final = []
 
-                # TODO: handle kalo data NaN di ganti jadi none atau sejenisnya
-
+                # Store the data
                 for el in data.values:
                     row = {}
                     for e in range(0, len(el)):

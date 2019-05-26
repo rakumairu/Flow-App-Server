@@ -5,6 +5,8 @@ raw_file = 'api/static/data/raw.csv'
 final_file = 'api/static/data/final.csv'
 
 class Drop(Resource):
+    """"Drop column in data"""
+    
     def get(self):
         if os.path.isfile(final_file):
             data = pd.read_csv(final_file)
@@ -27,6 +29,7 @@ class Drop(Resource):
             else:
                 data = pd.read_csv(raw_file)
 
+            # Drop column
             drop(data, args['data']['col'])
 
             data.to_csv(final_file, index=False)
@@ -47,4 +50,6 @@ class Drop(Resource):
             )
 
 def drop(data, col):
+    """"Drop certain column"""
+    
     data.drop(col, axis=1, inplace=True)
