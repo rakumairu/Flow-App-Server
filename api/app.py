@@ -17,6 +17,7 @@ from api.resources.statisticStart import StatisticStart
 from api.resources.statisticEnd import StatisticEnd
 from api.resources.statisticSummary import StatisticSummary
 from api.resources.countAttempt import CountAttempt
+from api.resources.alphaMiner import AlphaMiner
 
 
 app = Flask(__name__)
@@ -40,3 +41,4 @@ api.add_resource(StatisticStart, '/api/statisticstart')
 api.add_resource(StatisticEnd, '/api/statisticend')
 api.add_resource(StatisticSummary, '/api/statisticsummary')
 api.add_resource(CountAttempt, '/api/countattempt')
+api.add_resource(AlphaMiner, '/api/alphaminer')
